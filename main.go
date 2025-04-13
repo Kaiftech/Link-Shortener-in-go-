@@ -48,7 +48,7 @@ func shortenHandler(w http.ResponseWriter, r *http.Request) {
 	id := generateShortID(6)
 	shortToURL[id] = body.URL
 
-	// Get the base URL (fallback to localhost if not set)
+	// Get the base URL from the environment variable
 	baseURL := os.Getenv("BASE_URL")
 	if baseURL == "" {
 		baseURL = "http://localhost:8080" // fallback for local dev
@@ -80,8 +80,7 @@ func redirectHandler(w http.ResponseWriter, r *http.Request) {
 // Home page handler to show the URL shortening form
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
-	fmt.Fprintln(w, `
-	<!DOCTYPE html>
+	fmt.Fprintln(w, `<!DOCTYPE html>
 	<html lang="en">
 	<head>
 		<meta charset="UTF-8">
@@ -156,8 +155,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 			});
 		</script>
 	</body>
-	</html>
-	`)
+	</html>`)
 }
 
 func main() {
